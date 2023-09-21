@@ -6,7 +6,7 @@ def f(x):
 eps=0.0001
 
 def find_segments(): #відокремлюємо корені
-    search_range = np.arange(-2, -1.5)
+    search_range = np.arange(-10, 10, 1)
     
     a = None
     previous_x = None
