@@ -1,30 +1,35 @@
 def f(x):
     return x**4 + 2*x**3 + 2*x**2 + 6*x - 5
+
 def df(x):
     return 4*x**3 + 6*x**2 + 4*x + 6
-def combined_method(f, df, a, b, epsilon):
-    max_iterations = 1000
-    iteration = 0
-    while iteration < max_iterations:
-        # Метод бісекції
-        c = (a + b) / 2
-        if abs(f(c)) < epsilon:
-            return c
-        c = c - f(c) / df(c)
 
-        if abs(f(c)) < epsilon:
+def combined_method(f, a, b, epsilon):
+    if f(a) * f(b) > 0:
+        print("На вказаному відрізку немає коренів.")
+        return None
+
+    while (b - a) / 2 > epsilon:
+        c = (a + b) / 2
+        if f(c) == 0:
             return c
-        if f(a) * f(c) < 0:
+        elif f(a) * f(c) < 0:
             b = c
         else:
             a = c
 
-        iteration += 1
-    return None  # Розв'язок не знайдено
-a = 0.0  # Ліва межа інтервалу
-b = 2.0  # Права межа інтервалу
-epsilon = 0.0001  # Точність
-result = combined_method(f, df, a, b, epsilon)
+    return (a + b) / 2
+
+a1, b1 = -3, -2
+a2, b2 = 0, 1
+epsilon = 0.0001
+
+root1 = combined_method(f, a1, b1, epsilon)
+root2 = combined_method(f, a2, b2, epsilon)
+
+print(f"Корінь на відрізку [-3, -2]: {root1}")
+print(f"Корінь на відрізку [0, 1]: {root2}")
+
 if result is not None:
     print(f"Розв'язок: {result:.4f}")
 else:
